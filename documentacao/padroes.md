@@ -1,5 +1,5 @@
-#1. Análise dos Princípios SOLID
-##S — Single Responsibility Principle (SRP)
+# 1. Análise dos Princípios SOLID
+## S — Single Responsibility Principle (SRP)
 
 Cada módulo deve ter uma única responsabilidade.
 No sistema, há separação básica entre:
@@ -22,30 +22,30 @@ Exemplo:
     } catch (e) { next(e); }
   }
 ```
-##O — Open/Closed Principle (OCP)
+## O — Open/Closed Principle (OCP)
 
 O código deve estar aberto para extensão, mas fechado para modificação.
 Exemplo no projeto: é possível adicionar novos endpoints sem alterar os existentes.
 Sugestão: aplicar estratégias de filtro ou validação para estender funcionalidades sem mudar código já pronto.
 
-##L — Liskov Substitution Principle (LSP)
+## L — Liskov Substitution Principle (LSP)
 
 Subtipos devem poder substituir seus tipos base sem alterar o comportamento.
 Embora o código seja em JavaScript (sem herança formal), podemos aplicar esse princípio quando definimos contratos claros (ex.: serviços que sempre retornam `Promise`).
 
-##I — Interface Segregation Principle (ISP)
+## I — Interface Segregation Principle (ISP)
 
 Prefira interfaces pequenas a interfaces grandes.
 Na prática, em vez de um “mega service”, é melhor dividir em serviços específicos (ex.: `PetService`, `UserService`).
 
-##D — Dependency Inversion Principle (DIP)
+## D — Dependency Inversion Principle (DIP)
 
 Módulos de alto nível não devem depender diretamente de implementações de baixo nível.
 Hoje, alguns services usam direto o `PetModel` do Mongoose.
 Uma melhoria seria criar uma abstração de repositório que permita trocar a persistência sem mudar o domínio.
 
-#2. Padrões de Projeto
-##2.1 Singleton — Conexão com o Banco
+# 2. Padrões de Projeto
+## 2.1 Singleton — Conexão com o Banco
 
 O sistema deve manter apenas uma instância de conexão com o MongoDB.
 Esse é um exemplo clássico de Singleton.
@@ -65,7 +65,7 @@ async function connect(uri) {
 module.exports = { connect };
 ```
 
-##2.2 Strategy — Regras de Negócio Variáveis
+## 2.2 Strategy — Regras de Negócio Variáveis
 
 Permite definir diferentes estratégias sem mudar o código cliente.
 Pode ser aplicado, por exemplo, em filtros de listagem de pets.
