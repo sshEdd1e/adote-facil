@@ -14,14 +14,14 @@ Isso já aproxima o projeto do SRP, mas em alguns pontos controllers acumulam va
 
 Exemplo:
 ```js
-// controller (fino)
-async function createPet(req, res, next) {
-  try {
-    const pet = await petService.create(req.body);
-    res.status(201).json(pet);
-  } catch (e) { next(e); }
-}```
-
+  // controller (fino)
+  async function createPet(req, res, next) {
+    try {
+      const pet = await petService.create(req.body);
+      res.status(201).json(pet);
+    } catch (e) { next(e); }
+  }
+```
 ##O — Open/Closed Principle (OCP)
 
 O código deve estar aberto para extensão, mas fechado para modificação.
@@ -62,7 +62,8 @@ async function connect(uri) {
   return instance;
 }
 
-module.exports = { connect };```
+module.exports = { connect };
+```
 
 ##2.2 Strategy — Regras de Negócio Variáveis
 
@@ -85,4 +86,5 @@ class SpeciesFilter {
 // uso
 const filters = [new AgeFilter(), new SpeciesFilter()];
 let query = PetModel.find();
-filters.forEach(f => { query = f.apply(query, req.query); });```
+filters.forEach(f => { query = f.apply(query, req.query); });
+```
