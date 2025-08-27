@@ -62,26 +62,22 @@ Uma melhoria seria criar uma abstração de repositório que permita trocar a pe
 export const userRepositoryInstance = new UserRepository(prisma)
 ```
 
-## 2.2 Strategy — Regras de Negócio Variáveis
-
-Permite definir diferentes estratégias sem mudar o código cliente.
-Pode ser aplicado, por exemplo, em filtros de listagem de pets.
+## 2.2 Dependency Injection Pattern - Injeção de Dependência 
 
 ```js
-class AgeFilter {
-  apply(query, { minAge }) {
-    return minAge ? query.where('age').gte(minAge) : query;
+class CreateUserController {
+  constructor(private readonly createUser: CreateUserService) {}
+
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { name, email, password } = request.body
+
+    const result = await this.createUser.execute({ name, email, password })
+    const statusCode = result.isFailure() ? 400 : 201
+    return response.status(statusCode).json(result.value)
   }
 }
 
-class SpeciesFilter {
-  apply(query, { species }) {
-    return species ? query.where('species', species) : query;
-  }
-}
-
-// uso
-const filters = [new AgeFilter(), new SpeciesFilter()];
-let query = PetModel.find();
-filters.forEach(f => { query = f.apply(query, req.query); });
+export const createUserControllerInstance = new CreateUserController(
+  createUserServiceInstance,
+)
 ```
