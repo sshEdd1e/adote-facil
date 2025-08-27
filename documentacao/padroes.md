@@ -55,24 +55,11 @@ Hoje, alguns services usam direto o `PetModel` do Mongoose.
 Uma melhoria seria criar uma abstração de repositório que permita trocar a persistência sem mudar o domínio.
 
 # 2. Padrões de Projeto
-## 2.1 Singleton — Conexão com o Banco
-
-O sistema deve manter apenas uma instância de conexão com o MongoDB.
-Esse é um exemplo clássico de Singleton.
+## 2.1 Singleton — Instância Única de um Repositório
 
 ```js
 // db.js
-const mongoose = require('mongoose');
-let instance = null;
-
-async function connect(uri) {
-  if (!instance) {
-    instance = await mongoose.connect(uri, { dbName: 'adote' });
-  }
-  return instance;
-}
-
-module.exports = { connect };
+export const userRepositoryInstance = new UserRepository(prisma)
 ```
 
 ## 2.2 Strategy — Regras de Negócio Variáveis
