@@ -6,7 +6,7 @@ separando responsabilidades entre frontend e backend.
 
 - **Frontend**: aplicação SPA em React, organizada em páginas e componentes.
 - **Backend**: API REST em Node.js, estruturada em camadas:
-  - `models`: modelos de dados (MongoDB via Mongoose).
+  - `models`: modelos de dados.
   - `controllers`: lógica de aplicação.
   - `routes`: definição de endpoints.
   - `services`: regras de negócio e funções de apoio.
