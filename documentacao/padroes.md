@@ -15,12 +15,22 @@ Isso já aproxima o projeto do SRP, mas em alguns pontos controllers acumulam va
 Exemplo:
 ```js
   // controller (fino)
-  async function createPet(req, res, next) {
-    try {
-      const pet = await petService.create(req.body);
-      res.status(201).json(pet);
-    } catch (e) { next(e); }
-  }
+  class CreateUserController {
+      constructor(private readonly createUser: CreateUserService) {}
+
+      async handle(request: Request, response: Response): Promise<Response> {
+        const { name, email, password } = request.body;
+        try {
+          const result = await this.createUser.execute({ name, email, password }); // Delega para o serviço
+          const statusCode = result.isFailure() ? 400 : 201;
+          return response.status(statusCode).json(result.value);
+        } catch (err) {
+          const error = err as Error;
+          console.log({ error });
+          return response.status(500).json({ error: error.message });
+        }
+      }
+    }
 ```
 ## O — Open/Closed Principle (OCP)
 
